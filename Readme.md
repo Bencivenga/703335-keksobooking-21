@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Михаил Паюсов](https://up.htmlacademy.ru/javascript/21/user/703335).
-* Наставник: `Неизвестно`.
+* Наставник: `Кекс`.
 
 ---
 
