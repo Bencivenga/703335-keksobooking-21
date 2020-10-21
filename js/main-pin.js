@@ -28,6 +28,9 @@
   mainPinLocationInput.setAttribute(`readonly`, `true`);
 
   window.mainPin = {
+    MAIN_PIN_WIDTH,
+    MAIN_PIN_HEIGHT,
+    PIN_TIP_HEIGHT,
     setupAddress,
     pinsArea,
     mainPin,

@@ -8,6 +8,7 @@
   const {create} = window.pinAd;
   const {get} = window.data;
   const {isEnterEvent} = window.util;
+  const {onMainPinMouseMove} = window.dnd;
 
   const adFormSelects = adForm.querySelectorAll(`select`);
   const adFormInputs = adForm.querySelectorAll(`input`);
@@ -71,6 +72,7 @@
     setupAddress();
     mainPin.removeEventListener(`keydown`, onMainPinEnterPress);
     mainPin.removeEventListener(`mousedown`, onMainPinMouseButtonPress);
+    mainPin.addEventListener(`mousedown`, onMainPinMouseMove);
   };
 })();
 

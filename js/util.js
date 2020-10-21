@@ -19,8 +19,8 @@
   const getRandomArr = (arr) => arr.slice(getRandomNumber(0, arr.length));
 
   const getRandomLocation = () => {
-    const locationX = getRandomNumber(1, 1000); // 600
-    const locationY = getRandomNumber(1, 1000); // 350
+    const locationX = getRandomNumber(1, 1000);
+    const locationY = getRandomNumber(1, 1000);
     return `${locationX}, ${locationY}`;
   };
 
