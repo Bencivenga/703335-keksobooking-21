@@ -5,6 +5,8 @@
   const MAIN_PIN_WIDTH = 65;
   const MAIN_PIN_HEIGHT = 65;
   const PIN_TIP_HEIGHT = 22;
+  const MAIN_PIN_START_X = 570;
+  const MAIN_PIN_START_Y = 375;
   const pinsArea = document.querySelector(`.map__pins`);
   const mainPin = pinsArea.querySelector(`.map__pin--main`);
   const mainPinLocationInput = adForm.querySelector(`#address`);
@@ -32,9 +34,12 @@
     MAIN_PIN_WIDTH,
     MAIN_PIN_HEIGHT,
     PIN_TIP_HEIGHT,
+    MAIN_PIN_START_X,
+    MAIN_PIN_START_Y,
     setupAddress,
     pinsArea,
     mainPin,
+    setInitPinMainPosition,
   };
 
 })();
