@@ -1,14 +1,15 @@
 'use strict';
 (() => {
   const MOUSE_MAIN_BUTTON = 0;
-  const {map, mapFilterSelects, mapFilterInputs} = window.mapFiltering;
+  const {map, mapFilterSelects, mapFilterInputs, onError} = window.mapFiltering;
   const {adForm} = window.validation;
   const {setupAddress, mainPin, pinsArea} = window.mainPin;
   const {close} = window.card;
   const {create} = window.pinAd;
-  const {get} = window.data;
+  // const {get} = window.data;
   const {isEnterEvent} = window.util;
   const {onMainPinMouseMove} = window.dnd;
+  const {load} = window.backend;
 
   const adFormSelects = adForm.querySelectorAll(`select`);
   const adFormInputs = adForm.querySelectorAll(`input`);
@@ -67,8 +68,13 @@
     adFormTextArea.removeAttribute(`disabled`, `true`);
     adFormSubmit.removeAttribute(`disabled`, `true`);
     removePins();
-    const pinAd = get();
-    pinsArea.append(create(pinAd));
+    // const pinAd = get();
+    // pinsArea.append(create(pinAd));
+    const onLoad = (data) => {
+      pinsArea.append(create(data));
+    };
+    load(onLoad, onError);
+
     setupAddress();
     mainPin.removeEventListener(`keydown`, onMainPinEnterPress);
     mainPin.removeEventListener(`mousedown`, onMainPinMouseButtonPress);
