@@ -6,7 +6,7 @@
   const MAP_TOP = 130;
   const MAP_BOTTOM = 630;
   const MAP_LEFT = 0;
-  const MAP_RIGHT = pinsArea;
+  const MAP_RIGHT = pinsArea.offsetWidth;
 
   const limits = {
     top: map.offsetTop + MAP_TOP - (MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT),

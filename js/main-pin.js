@@ -21,8 +21,9 @@
   setInitPinMainPosition();
 
   const setupAddress = () => {
+    const newPinPositionX = Math.floor(mainPin.offsetLeft + MAIN_PIN_WIDTH / 2);
     const newPinPositionY = Math.floor(mainPin.offsetTop + MAIN_PIN_HEIGHT + PIN_TIP_HEIGHT);
-    mainPinLocationInput.value = `${mainPinsStartCoordinates.x}, ${newPinPositionY}`;
+    mainPinLocationInput.value = `${newPinPositionX}, ${newPinPositionY}`;
   };
 
   mainPinLocationInput.setAttribute(`readonly`, `true`);
