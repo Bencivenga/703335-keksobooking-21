@@ -36,10 +36,10 @@
   };
 
   window.backend = {
-    load(onLoad, onError) {
+    upload(onLoad, onError) {
       dataHandler(GET, URL_TO_GET, null, onLoad, onError);
     },
-    save(data, onLoad, onError) {
+    download(data, onLoad, onError) {
       dataHandler(POST, URL_TO_POST, data, onLoad, onError);
     },
   };
