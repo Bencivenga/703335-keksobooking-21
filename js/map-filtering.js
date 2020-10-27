@@ -1,35 +1,52 @@
 'use strict';
 (() => {
-  const map = document.querySelector(`.map`);
+  const PINS_TOTAL = 5;
+  const {create} = window.pinAd;
+  const {map, close} = window.card;
+  const {pinsArea} = window.mainPin;
   const mapFilter = map.querySelector(`.map__filters`);
   const mapFilterSelects = mapFilter.querySelectorAll(`select`);
   const mapFilterInputs = mapFilter.querySelectorAll(`input`);
 
-  const onError = (errorMessage) => {
-    const error = document.createElement(`div`);
-    error.style = `z-index: 100; margin: 0 auto; text-align: center`;
-    error.style.width = `800px`;
-    error.style.height = `100px`;
-    error.style.paddingTop = `30px`;
-    error.style.backgroundColor = `black`;
-    error.style.color = `white`;
-    error.style.position = `absolute`;
-    error.style.top = `200px`;
-    error.style.left = 0;
-    error.style.right = 0;
-    error.style.fontSize = `30px`;
-    error.textContent = errorMessage;
-    error.style.cursor = `pointer`;
-    document.body.insertAdjacentElement(`afterbegin`, error);
-    error.addEventListener(`click`, () => {
-      error.remove();
+  const removePins = () => {
+    const prevPins = document.querySelectorAll(`.map__pin:not(.map__pin--main)`);
+    prevPins.forEach((pin) => {
+      pin.remove();
     });
   };
+
+  let ads;
+  const onLoad = (data) => {
+    ads = data;
+    updateAds(data);
+  };
+
+  const updateAds = (data) => {
+    removePins();
+    pinsArea.append(create(data.slice(0, PINS_TOTAL)));
+  };
+
+  const housingType = document.querySelector(`#housing-type`);
+  let housingTypeValue = ``;
+  const ANY_HOUSING = `any`;
+  housingType.addEventListener(`change`, () => {
+    housingTypeValue = housingType.value;
+    let newAds = [];
+    ads.forEach((item) => {
+      if (housingTypeValue === ANY_HOUSING || item.offer.type === housingTypeValue) {
+        newAds.push(item);
+      }
+    });
+    close();
+    updateAds(newAds);
+  });
+
 
   window.mapFiltering = {
     map,
     mapFilterSelects,
     mapFilterInputs,
-    onError,
+    removePins,
+    onLoad,
   };
 })();

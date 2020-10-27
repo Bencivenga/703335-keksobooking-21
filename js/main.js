@@ -1,12 +1,11 @@
 'use strict';
 (() => {
   const MOUSE_MAIN_BUTTON = 0;
-  const {map, mapFilterSelects, mapFilterInputs, onError} = window.mapFiltering;
+  const {mapFilterSelects, mapFilterInputs, removePins, onLoad} = window.mapFiltering;
   const {adForm} = window.validation;
-  const {setupAddress, mainPin, pinsArea, MAIN_PIN_START_X, MAIN_PIN_START_Y, setInitPinMainPosition} = window.mainPin;
-  const {close} = window.card;
-  const {create} = window.pinAd;
-  const {isEnterEvent, isEscEvent} = window.util;
+  const {setupAddress, mainPin, MAIN_PIN_START_X, MAIN_PIN_START_Y, setInitPinMainPosition} = window.mainPin;
+  const {map, close} = window.card;
+  const {isEnterEvent, isEscEvent, onError} = window.util;
   const {onMainPinMouseMove} = window.dnd;
   const {upload, download} = window.backend;
 
@@ -33,13 +32,6 @@
   setDisabled(mapFilterInputs);
   adFormTextArea.setAttribute(`disabled`, `true`);
   adFormSubmit.setAttribute(`disabled`, `true`);
-
-  const removePins = () => {
-    const prevPins = document.querySelectorAll(`.map__pin:not(.map__pin--main)`);
-    prevPins.forEach((pin) => {
-      pin.remove();
-    });
-  };
 
   const onMainPinMouseButtonPress = (evt) => {
     if (evt.button === MOUSE_MAIN_BUTTON) {
@@ -144,20 +136,17 @@
     adFormTextArea.removeAttribute(`disabled`, `true`);
     adFormSubmit.removeAttribute(`disabled`, `true`);
     setupAddress();
-    upload((data) => {
-      pinsArea.append(create(data));
-    }, onError);
+    upload(onLoad, onError);
 
     adForm.addEventListener(`submit`, (evt) => {
+      evt.preventDefault();
       const data = new FormData(adForm);
-      const onLoad = () => {
+
+      download(data, () => {
         deactivatePage();
         showSuccessMessage();
-      };
-
-      download(data, onLoad, showErrorMessage);
-      evt.preventDefault();
-
+      }, showErrorMessage);
+      document.activeElement.blur();
     });
 
     mainPin.removeEventListener(`keydown`, onMainPinEnterPress);

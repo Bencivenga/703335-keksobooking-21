@@ -7,8 +7,9 @@
     PALACE: `palace`,
   };
 
+  const map = document.querySelector(`.map`);
+
   const {isEscEvent} = window.util;
-  const {map} = window.mapFiltering;
 
   const generateFeatures = (cardFeatures, cardFragment) => {
     cardFeatures.forEach((feature) => {
@@ -128,6 +129,7 @@
   };
 
   window.card = {
+    map,
     show,
     close,
   };
