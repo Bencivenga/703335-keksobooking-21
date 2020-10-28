@@ -8,6 +8,7 @@
   };
 
   const map = document.querySelector(`.map`);
+  const mapFiltersContainer = map.querySelector(`.map__filters-container`);
 
   const {isEscEvent} = window.util;
 
@@ -105,7 +106,7 @@
     cardElement.querySelector(`.popup__description`).textContent = description;
     renderPhotos(cardElement, photos);
     cardElement.querySelector(`.popup__avatar`).src = avatar;
-    const mapFiltersContainer = document.querySelector(`.map__filters-container`);
+    // const mapFiltersContainer = document.querySelector(`.map__filters-container`);
     map.insertBefore(cardElement, mapFiltersContainer);
     return cardElement;
   };
@@ -130,6 +131,7 @@
 
   window.card = {
     map,
+    mapFiltersContainer,
     show,
     close,
   };
