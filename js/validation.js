@@ -4,7 +4,7 @@
   const adTitle = adForm.querySelector(`#title`);
   const minTitleLength = adTitle.minLength;
 
-  adTitle.addEventListener(`input`, () => {
+  const onAdTitleSetCustomValidity = () => {
     let valueLength = adTitle.value.length;
     if (valueLength < minTitleLength) {
       adTitle.setCustomValidity(`Минимальная длина — 30 символов, ещё ${minTitleLength - valueLength}`);
@@ -12,7 +12,7 @@
       adTitle.setCustomValidity(``);
     }
     adTitle.reportValidity();
-  });
+  };
 
   const adPrice = adForm.querySelector(`#price`);
 
@@ -26,13 +26,13 @@
     }
   };
 
-  adPrice.addEventListener(`invalid`, () => {
+  const onInvalidAdPriceCheckValidity = () => {
     validatePrice();
-  });
+  };
 
-  adPrice.addEventListener(`input`, () => {
+  const onInputAdPriceCheckValidity = () => {
     validatePrice();
-  });
+  };
 
   const typeToPriceMap = {
     bungalow: 0,
@@ -50,11 +50,10 @@
   let minPrice = typeToPriceMap[housingType.value];
   setMinPrice(minPrice);
 
-  housingType.addEventListener(`change`, () => {
-    adPrice.value = ``;
+  const onHousingTypeChangeHandler = () => {
     minPrice = typeToPriceMap[housingType.value];
     setMinPrice(minPrice);
-  });
+  };
 
   const checkIn = adForm.querySelector(`#timein`);
   const checkOut = adForm.querySelector(`#timeout`);
@@ -67,13 +66,13 @@
     checkOut.value = value;
   };
 
-  checkIn.addEventListener(`change`, () => {
+  const onCheckInChangeHandler = () => {
     changeCheckOut(checkIn.value);
-  });
+  };
 
-  checkOut.addEventListener(`change`, () => {
+  const onCheckOutChangeHandler = () => {
     changeCheckIn(checkOut.value);
-  });
+  };
 
   const adRoomsNumber = adForm.querySelector(`#room_number`);
   const adGuestsNumber = adForm.querySelector(`#capacity`);
@@ -103,11 +102,24 @@
 
   setValidCapacity();
 
-  adRoomsNumber.addEventListener(`change`, () => {
+  const onAdRoomsChangeHandler = () => {
     setValidCapacity();
-  });
+  };
 
   window.validation = {
     adForm,
+    adTitle,
+    onAdTitleSetCustomValidity,
+    adPrice,
+    onInvalidAdPriceCheckValidity,
+    onInputAdPriceCheckValidity,
+    housingType,
+    onHousingTypeChangeHandler,
+    checkOut,
+    checkIn,
+    onCheckInChangeHandler,
+    onCheckOutChangeHandler,
+    adRoomsNumber,
+    onAdRoomsChangeHandler,
   };
 })();

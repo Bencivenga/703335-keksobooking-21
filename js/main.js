@@ -1,13 +1,17 @@
 'use strict';
 (() => {
   const MOUSE_MAIN_BUTTON = 0;
-  const {mapFilterSelects, mapFilterInputs, removePins, onLoad} = window.mapFiltering;
+  const {mapFilterSelects, mapFilterInputs, mapFilter, removePins, onLoad, onFilterGetNewAds} = window.mapFiltering;
   const {adForm} = window.validation;
   const {setupAddress, mainPin, MAIN_PIN_START_X, MAIN_PIN_START_Y, setInitPinMainPosition} = window.mainPin;
-  const {map, close} = window.card;
+  const {map, mapFiltersContainer, close} = window.card;
   const {isEnterEvent, isEscEvent, onError} = window.util;
   const {onMainPinMouseMove} = window.dnd;
   const {upload, download} = window.backend;
+  const {
+    adTitle, onAdTitleSetCustomValidity, adPrice, onInvalidAdPriceCheckValidity, onInputAdPriceCheckValidity, housingType,
+    onHousingTypeChangeHandler, checkIn, checkOut, onCheckInChangeHandler, onCheckOutChangeHandler, adRoomsNumber, onAdRoomsChangeHandler
+  } = window.validation;
 
   const adFormSelects = adForm.querySelectorAll(`select`);
   const adFormInputs = adForm.querySelectorAll(`input`);
@@ -25,6 +29,8 @@
       element.removeAttribute(`disabled`, `true`);
     });
   };
+
+  mapFiltersContainer.classList.add(`hidden`);
 
   setDisabled(adFormSelects);
   setDisabled(adFormInputs);
@@ -115,11 +121,21 @@
     setDisabled(mapFilterInputs);
     setDisabled(adFormSelects);
     setDisabled(adFormInputs);
+    mapFiltersContainer.classList.add(`hidden`);
     adFormTextArea.setAttribute(`disabled`, `true`);
     adFormSubmit.setAttribute(`disabled`, `true`);
 
     mainPin.addEventListener(`mousedown`, onMainPinMouseButtonPress);
     resetButton.removeEventListener(`click`, resetForm);
+
+    mapFilter.removeEventListener(`change`, onFilterGetNewAds);
+    adTitle.removeEventListener(`input`, onAdTitleSetCustomValidity);
+    adPrice.removeEventListener(`input`, onInputAdPriceCheckValidity);
+    adPrice.removeEventListener(`invalid`, onInvalidAdPriceCheckValidity);
+    housingType.removeEventListener(`change`, onHousingTypeChangeHandler);
+    checkIn.removeEventListener(`change`, onCheckInChangeHandler);
+    checkOut.removeEventListener(`change`, onCheckOutChangeHandler);
+    adRoomsNumber.removeEventListener(`change`, onAdRoomsChangeHandler);
   };
 
   mainPin.addEventListener(`mousedown`, onMainPinMouseButtonPress);
@@ -135,6 +151,7 @@
     setActive(mapFilterInputs);
     adFormTextArea.removeAttribute(`disabled`, `true`);
     adFormSubmit.removeAttribute(`disabled`, `true`);
+    mapFiltersContainer.classList.remove(`hidden`);
     setupAddress();
     upload(onLoad, onError);
 
@@ -153,6 +170,14 @@
     mainPin.removeEventListener(`mousedown`, onMainPinMouseButtonPress);
     resetButton.addEventListener(`click`, resetForm);
 
+    mapFilter.addEventListener(`change`, onFilterGetNewAds);
+    adTitle.addEventListener(`input`, onAdTitleSetCustomValidity);
+    adPrice.addEventListener(`input`, onInputAdPriceCheckValidity);
+    adPrice.addEventListener(`invalid`, onInvalidAdPriceCheckValidity);
+    housingType.addEventListener(`change`, onHousingTypeChangeHandler);
+    checkIn.addEventListener(`change`, onCheckInChangeHandler);
+    checkOut.addEventListener(`change`, onCheckOutChangeHandler);
+    adRoomsNumber.addEventListener(`change`, onAdRoomsChangeHandler);
   };
 })();
 
