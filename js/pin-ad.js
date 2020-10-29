@@ -1,30 +1,30 @@
 'use strict';
-(() => {
-  const {show} = window.card;
 
-  const create = (data) => {
-    const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
-    const fragment = document.createDocumentFragment();
+const {showPopup} = window.card;
 
-    data.forEach((item) => {
-      const element = pinTemplate.cloneNode(true);
-      const img = element.querySelector(`img`);
+const create = (data) => {
+  const pinTemplate = document.querySelector(`#pin`).content.querySelector(`.map__pin`);
+  const fragment = document.createDocumentFragment();
 
-      element.style = `left: ${item.location.x - img.width / 2}px;
+  data.forEach((item) => {
+    const element = pinTemplate.cloneNode(true);
+    const img = element.querySelector(`img`);
+
+    element.style = `left: ${item.location.x - img.width / 2}px;
                      top: ${item.location.y - img.height}px;`;
-      img.src = item.author.avatar;
-      img.alt = item.offer.title;
+    img.src = item.author.avatar;
+    img.alt = item.offer.title;
 
-      fragment.append(element);
-      element.addEventListener(`click`, () => {
-        show(item);
-      });
+    fragment.append(element);
+    element.addEventListener(`click`, () => {
+      showPopup(item);
     });
+  });
 
-    return fragment;
-  };
+  return fragment;
+};
 
-  window.pinAd = {
-    create,
-  };
-})();
+window.pinAd = {
+  create,
+};
+
