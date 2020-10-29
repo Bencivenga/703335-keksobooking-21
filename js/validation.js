@@ -50,7 +50,7 @@
   let minPrice = typeToPriceMap[housingType.value];
   setMinPrice(minPrice);
 
-  const onHousingTypeChangeHandler = () => {
+  const onHousingTypeChange = () => {
     minPrice = typeToPriceMap[housingType.value];
     setMinPrice(minPrice);
   };
@@ -66,11 +66,11 @@
     checkOut.value = value;
   };
 
-  const onCheckInChangeHandler = () => {
+  const onCheckInChange = () => {
     changeCheckOut(checkIn.value);
   };
 
-  const onCheckOutChangeHandler = () => {
+  const onCheckOutChange = () => {
     changeCheckIn(checkOut.value);
   };
 
@@ -102,7 +102,7 @@
 
   setValidCapacity();
 
-  const onAdRoomsChangeHandler = () => {
+  const onAdRoomsChange = () => {
     setValidCapacity();
   };
 
@@ -114,12 +114,12 @@
     onInvalidAdPriceCheckValidity,
     onInputAdPriceCheckValidity,
     housingType,
-    onHousingTypeChangeHandler,
+    onHousingTypeChange,
     checkOut,
     checkIn,
-    onCheckInChangeHandler,
-    onCheckOutChangeHandler,
+    onCheckInChange,
+    onCheckOutChange,
     adRoomsNumber,
-    onAdRoomsChangeHandler,
+    onAdRoomsChange,
   };
 })();

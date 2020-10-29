@@ -10,21 +10,22 @@
   const {upload, download} = window.backend;
   const {
     adTitle, onAdTitleSetCustomValidity, adPrice, onInvalidAdPriceCheckValidity, onInputAdPriceCheckValidity, housingType,
-    onHousingTypeChangeHandler, checkIn, checkOut, onCheckInChangeHandler, onCheckOutChangeHandler, adRoomsNumber, onAdRoomsChangeHandler
+    onHousingTypeChange, checkIn, checkOut, onCheckInChange, onCheckOutChange, adRoomsNumber, onAdRoomsChange
   } = window.validation;
+  const {setDisabled, setEnabled} = window.uploadImage;
 
   const adFormSelects = adForm.querySelectorAll(`select`);
   const adFormInputs = adForm.querySelectorAll(`input`);
   const adFormTextArea = adForm.querySelector(`#description`);
   const adFormSubmit = adForm.querySelector(`.ad-form__element--submit`);
 
-  const setDisabled = (elements) => {
+  const setInputsDisabled = (elements) => {
     elements.forEach((element) => {
       element.setAttribute(`disabled`, `true`);
     });
   };
 
-  const setActive = (elements) => {
+  const setInputsActive = (elements) => {
     elements.forEach((element) => {
       element.removeAttribute(`disabled`, `true`);
     });
@@ -32,10 +33,10 @@
 
   mapFiltersContainer.classList.add(`hidden`);
 
-  setDisabled(adFormSelects);
-  setDisabled(adFormInputs);
-  setDisabled(mapFilterSelects);
-  setDisabled(mapFilterInputs);
+  setInputsDisabled(adFormSelects);
+  setInputsDisabled(adFormInputs);
+  setInputsDisabled(mapFilterSelects);
+  setInputsDisabled(mapFilterInputs);
   adFormTextArea.setAttribute(`disabled`, `true`);
   adFormSubmit.setAttribute(`disabled`, `true`);
 
@@ -117,10 +118,10 @@
     mainPin.style.left = `${MAIN_PIN_START_X}px`;
     mainPin.style.top = `${MAIN_PIN_START_Y}px`;
     setInitPinMainPosition();
-    setDisabled(mapFilterSelects);
-    setDisabled(mapFilterInputs);
-    setDisabled(adFormSelects);
-    setDisabled(adFormInputs);
+    setInputsDisabled(mapFilterSelects);
+    setInputsDisabled(mapFilterInputs);
+    setInputsDisabled(adFormSelects);
+    setInputsDisabled(adFormInputs);
     mapFiltersContainer.classList.add(`hidden`);
     adFormTextArea.setAttribute(`disabled`, `true`);
     adFormSubmit.setAttribute(`disabled`, `true`);
@@ -132,10 +133,11 @@
     adTitle.removeEventListener(`input`, onAdTitleSetCustomValidity);
     adPrice.removeEventListener(`input`, onInputAdPriceCheckValidity);
     adPrice.removeEventListener(`invalid`, onInvalidAdPriceCheckValidity);
-    housingType.removeEventListener(`change`, onHousingTypeChangeHandler);
-    checkIn.removeEventListener(`change`, onCheckInChangeHandler);
-    checkOut.removeEventListener(`change`, onCheckOutChangeHandler);
-    adRoomsNumber.removeEventListener(`change`, onAdRoomsChangeHandler);
+    housingType.removeEventListener(`change`, onHousingTypeChange);
+    checkIn.removeEventListener(`change`, onCheckInChange);
+    checkOut.removeEventListener(`change`, onCheckOutChange);
+    adRoomsNumber.removeEventListener(`change`, onAdRoomsChange);
+    setDisabled();
   };
 
   mainPin.addEventListener(`mousedown`, onMainPinMouseButtonPress);
@@ -145,10 +147,10 @@
   const activatePage = () => {
     adForm.classList.remove(`ad-form--disabled`);
     map.classList.remove(`map--faded`);
-    setActive(adFormSelects);
-    setActive(adFormInputs);
-    setActive(mapFilterSelects);
-    setActive(mapFilterInputs);
+    setInputsActive(adFormSelects);
+    setInputsActive(adFormInputs);
+    setInputsActive(mapFilterSelects);
+    setInputsActive(mapFilterInputs);
     adFormTextArea.removeAttribute(`disabled`, `true`);
     adFormSubmit.removeAttribute(`disabled`, `true`);
     mapFiltersContainer.classList.remove(`hidden`);
@@ -163,7 +165,6 @@
         deactivatePage();
         showSuccessMessage();
       }, showErrorMessage);
-      document.activeElement.blur();
     });
 
     mainPin.removeEventListener(`keydown`, onMainPinEnterPress);
@@ -174,10 +175,11 @@
     adTitle.addEventListener(`input`, onAdTitleSetCustomValidity);
     adPrice.addEventListener(`input`, onInputAdPriceCheckValidity);
     adPrice.addEventListener(`invalid`, onInvalidAdPriceCheckValidity);
-    housingType.addEventListener(`change`, onHousingTypeChangeHandler);
-    checkIn.addEventListener(`change`, onCheckInChangeHandler);
-    checkOut.addEventListener(`change`, onCheckOutChangeHandler);
-    adRoomsNumber.addEventListener(`change`, onAdRoomsChangeHandler);
+    housingType.addEventListener(`change`, onHousingTypeChange);
+    checkIn.addEventListener(`change`, onCheckInChange);
+    checkOut.addEventListener(`change`, onCheckOutChange);
+    adRoomsNumber.addEventListener(`change`, onAdRoomsChange);
+    setEnabled();
   };
 })();
 
