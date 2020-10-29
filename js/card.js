@@ -83,8 +83,8 @@ const createCard = (data) => {
       8: ``,
       9: ``,
     };
-    let result = (ending >= 5 && ending <= 20) ? `` : endings[lastFigure];
-    return result;
+
+    return (ending >= 5 && ending <= 20) ? `` : endings[lastFigure];
   };
 
   const guestEnding = (ending) => {
@@ -92,8 +92,7 @@ const createCard = (data) => {
     if (ending >= 10) {
       lastFigure = ending % 10;
     }
-    let result = (lastFigure === 1) ? `я` : `ей`;
-    return result;
+    return (lastFigure === 1) ? `я` : `ей`;
   };
 
 

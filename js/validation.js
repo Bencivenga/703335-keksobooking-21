@@ -88,11 +88,7 @@ const setValidCapacity = () => {
   let roomsNumber = adRoomsNumber.value;
   let guestsOptions = adGuestsNumber.querySelectorAll(`option`);
   guestsOptions.forEach((option) => {
-    if (capacityValues[roomsNumber].indexOf(option.value) === -1) {
-      option.disabled = true;
-    } else {
-      option.disabled = false;
-    }
+    option.disabled = capacityValues[roomsNumber].indexOf(option.value) === -1;
   });
 
   if (guestsOptions[adGuestsNumber.selectedIndex].disabled) {
