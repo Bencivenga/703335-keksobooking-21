@@ -91,13 +91,13 @@ const onAvatarChange = () => {
   chooseFile(avatarImageInput.files[0], uploadAvatar);
 };
 
-const onHousingImagesChange = () => {
+const onHousingImageChange = () => {
   chooseFile(housingImagesInput.files[0], uploadHousingImage);
 };
 
 const setEnabled = () => {
   avatarImageInput.addEventListener(`change`, onAvatarChange);
-  housingImagesInput.addEventListener(`change`, onHousingImagesChange);
+  housingImagesInput.addEventListener(`change`, onHousingImageChange);
 };
 
 const setDisabled = () => {
@@ -117,7 +117,7 @@ const setDisabled = () => {
   housingPhotoContainer.appendChild(housingPhotoBlock);
 
   avatarImageInput.removeEventListener(`change`, onAvatarChange);
-  housingImagesInput.removeEventListener(`change`, onHousingImagesChange);
+  housingImagesInput.removeEventListener(`change`, onHousingImageChange);
 };
 
 window.uploadImage = {
